@@ -1,6 +1,6 @@
 import time
 import random
-from collections import default_dict
+from collections import defaultdict
 from charactes_class import Characters
 
 
