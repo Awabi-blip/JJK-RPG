@@ -1,6 +1,6 @@
 import time
 import random
-
+from collections import default_dict
 from charactes_class import Characters
 
 
@@ -55,8 +55,8 @@ class Mahoraga(Shikigami, Megumi):
         self.hp = 150
         self.attack_potency = [100, 120]
         self.healing_rate = random.randint(self.cursed_energy[0], self.cursed_energy[1])
-        self.adaptaion = []
-        self.attack_taken = 0
+        self.adaptation = defaultdict(int)
+        self.attacks_taken_count = 0
 
     def take_damage(self, target):
         damage_taken = random.randint(target.attack_potency[0], target.attack_potency[1])
@@ -65,11 +65,9 @@ class Mahoraga(Shikigami, Megumi):
         print(f"{self.name} takes {damage_taken} damage! ")
 
     def cursed_damage(self, attack_type, damage):
-        self.adaptaion.append(attack_type)
-        for i in self.adaptaion:
-            if i == attack_type:
-                self.attack_taken += 1
-        if self.attack_taken <= 2:
+        self.adaptation[attack_type] += 1
+        self.attacks_taken_count = self.adaptation[attack_type]
+        if self.attacks_taken_count <= 2:
             time.sleep(1)
             print("The wheel spins....")
             self.hp -= damage
